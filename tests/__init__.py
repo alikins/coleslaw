@@ -1,1 +1,1 @@
-"""Unit test package for galaxycreate."""
+"""Unit test package for coleslaw."""

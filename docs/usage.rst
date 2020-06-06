@@ -2,6 +2,6 @@
 Usage
 =====
 
-To use galaxycreate in a project::
+To use coleslaw in a project::
 
-    import galaxycreate
+    import coleslaw

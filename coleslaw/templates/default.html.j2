@@ -1,0 +1,15 @@
+<!-- coleslaw start default-before-extends template "{{ self }}" -->
+{% extends "base.html.j2" %}
+<!-- coleslaw start default template "{{ self }}" -->
+{% block title %}- Default{% endblock title %}
+{% block head %}
+    {{ super() }}
+{% endblock head %}
+{% block content %}
+    {% include 'navbar.html.j2' %}
+    {% include 'breadcrumb.html.j2' %}
+{% endblock content %}
+{% block footer %}
+    {% include 'javascript.html.j2' %}
+{% endblock footer %}
+<!-- coleslaw end default template "{{ self }}" -->

@@ -1,0 +1,22 @@
+
+<!-- coleslaw start base template="{{ self }}" -->
+<!DOCTYPE html>
+<html lang="en">
+<!-- coleslaw start base-after-html template="{{ self }}" -->
+<head>
+    {% block head %}
+    {% include "head_block.html.j2" %}
+    <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+</head>
+<body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="links">{% block links %}{% include "sibling_links.html.j2" %}{% endblock %}</div>
+    <div id="footer">
+        {% block footer %}
+        {% endblock %}
+    </div>
+</body>
+<!-- coleslaw end base-before-end-html template="{{ self }}" -->
+</html>
+<!-- coleslaw end base template="{{ self }}" -->

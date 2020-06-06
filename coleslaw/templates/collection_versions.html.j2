@@ -1,0 +1,45 @@
+<!-- coleslaw start-pre-extends template="{{ self }}" -->
+{% extends "default.html.j2" %}
+<!-- coleslaw start colvers template="{{ self }}" -->
+{% block title %}{{ data.node.parent.label|escape }}{% endblock title %}
+{% block content %}
+{{ super() }}
+{%- set versions = data.node.parent.findall(filter_=data.node.filter_by_hasattr(attr_name='version'), maxlevel=2)|sort -%}
+<h2>{{ data.node.parent.parent.collection_label }}</h2>
+<table
+  data-toggle="table"
+  data-search="true"
+  data-show-columns="true"
+  class="table collection-versions-table">
+  <thead>
+    <tr>
+      <th data-field="filename" data-sortable="true" scope="col">Version</th>
+      <th data-field="download" data=sortable="false" scope="col">Download</th>
+      <th data-field="mtime" data-sortable="true" scope="col">Modified Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="colvers-table-row">
+    <td>
+        <a href="default/" class="colvers-table-row-link">default -> {{ versions[0].name }}</a>
+    </td>
+    <td>
+        <a href="{{ versions[0].download_url }}" class="badge badge-primary colvers-table-row-download">download</a>
+    </td>
+    <td>{% if versions[0].mtime is defined %}{{ versions[0].mtime }}{% endif %}</td>
+    </tr>
+{% for version in versions %}
+    <tr class="colvers-table-row">
+    <td>
+        <a href="{{ version.name }}/" class="colvers-table-row-link">{{ version.name }}</a>
+    </td>
+    <td>
+        <a href="{{ version.download_url }}" class="badge badge-primary colvers-table-row-download">download</a>
+    </td>
+    <td>{% if version.mtime is defined %}{{ version.mtime }}{% endif %}</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+{% endblock content %}
+<!-- coleslaw end template="{{ self }}" -->

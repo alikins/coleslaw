@@ -8,13 +8,13 @@ Installation
 Stable release
 --------------
 
-To install galaxycreate, run this command in your terminal:
+To install coleslaw, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install galaxycreate
+    $ pip install coleslaw
 
-This is the preferred method to install galaxycreate, as it will always install the most recent stable release.
+This is the preferred method to install coleslaw, as it will always install the most recent stable release.
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
@@ -26,19 +26,19 @@ you through the process.
 From sources
 ------------
 
-The sources for galaxycreate can be downloaded from the `Github repo`_.
+The sources for coleslaw can be downloaded from the `Github repo`_.
 
 You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/alikins/galaxycreate
+    $ git clone git://github.com/alikins/coleslaw
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl -OJL https://github.com/alikins/galaxycreate/tarball/master
+    $ curl -OJL https://github.com/alikins/coleslaw/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
@@ -47,5 +47,5 @@ Once you have a copy of the source, you can install it with:
     $ python setup.py install
 
 
-.. _Github repo: https://github.com/alikins/galaxycreate
-.. _tarball: https://github.com/alikins/galaxycreate/tarball/master
+.. _Github repo: https://github.com/alikins/coleslaw
+.. _tarball: https://github.com/alikins/coleslaw/tarball/master

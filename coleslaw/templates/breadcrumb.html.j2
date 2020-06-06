@@ -1,0 +1,10 @@
+<!-- coleslaw start template="{{ self }}" -->
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+{% for node in data.node.ancestors %}
+    <li class="breadcrumb-item"><a href="{{ '../' * loop.revindex0 }}index.html">{% if loop.first %}home{% else %}{{ node.name }}{% endif %}</a></li>
+{% endfor %}
+<li class="breadcrumb-item"><a href="{{ data.node.name }}">{{ data.node.name }}</a></li>
+</ol>
+</nav>
+<!-- coleslaw end template="{{ self }}" -->

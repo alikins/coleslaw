@@ -1,0 +1,35 @@
+<!-- coleslaw start default-before-extends template "{{ self }}" -->
+{% extends "default.html.j2" %}
+<!-- coleslaw start artifacts template "{{ self }}" -->
+{% block content %}
+{{ super() }}
+<table
+  data-toggle="table"
+  data-search="true"
+  data-show-columns="true"
+  class="table artifacts-table">
+  <thead>
+    <tr>
+      <th data-field="filename" data-sortable="true" scope="col">Filename</th>
+      <th data-field="size" data-sortable="true" scope="col">Size (bytes)</th>
+      <th data-field="mtime" data-sortable="true" scope="col">Modified Date</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for sibling_node in data.siblings %}
+    <tr class="artifact-table-row">
+    <td>
+    <a href="{{ sibling_node.name }}{% if sibling_node.url_pth.endswith('/') %}/{% else %}{% endif %}" class="artifact-table-row-link">
+    {{ sibling_node.name }}
+    </a>
+    </td>
+    <td>{{ sibling_node.file_size }}</td>
+    <td>{% if sibling_node.mtime is defined %}{{ sibling_node.mtime }}{% endif %}</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+{% endblock content %}
+{% block links %}
+{% endblock links %}
+<!-- coleslaw end artifacts template "{{ self }}" -->

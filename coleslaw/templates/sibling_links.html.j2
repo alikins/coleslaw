@@ -1,0 +1,13 @@
+<!-- coleslaw start siblings template="{{ self }}" -->
+<ul class="nav">
+{% for sibling_node in data.siblings %}
+    {% set link_name = sibling_node.name %}
+    {% if sibling_node.url_pth.endswith('/') %}
+        {% set link_name = link_name + '/' %}
+    {% endif %}
+    <li class="nav-item">
+    <a class="nav-link" href="{{ link_name }}">{{ link_name }}</a>
+    </li>
+{% endfor %}
+</ul>
+<!-- coleslaw end siblings template="{{ self }}" -->

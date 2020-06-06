@@ -1,0 +1,9 @@
+{%- set server_nodes = data.node.parent.findall(filter_=data.node.filter_by_hasattr(attr_name='warehouse_name'), maxlevel=5) -%}
+[galaxy]
+server_list = {{ server_nodes|join(', ', attribute='warehouse_name') }}
+
+{% for node in server_nodes -%}
+[galaxy_server.{{ node.warehouse_name|escape }}]
+url={{ node.galaxy_server_url|escape }}{% if not loop.last %}
+{% endif %}
+{% endfor -%}

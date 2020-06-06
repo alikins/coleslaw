@@ -4,13 +4,16 @@
 
 from setuptools import setup, find_packages
 
-with open('README.rst') as readme_file:
+with open("README.rst") as readme_file:
     readme = readme_file.read()
 
-with open('HISTORY.rst') as history_file:
+with open("HISTORY.rst") as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', ]
+requirements = ["anytree>=2.8.0",
+                "Click>=7.0",
+                "semantic_version>=2.8.5",
+                "galaxy_importer>=0.2.4"]
 
 setup_requirements = ['pytest-runner', ]
 
@@ -34,20 +37,20 @@ setup(
     description="Create a static ansible-galaxy collection warehouse",
     entry_points={
         'console_scripts': [
-            'galaxycreate=galaxycreate.cli:main',
+            'coleslaw=coleslaw.cli:main',
         ],
     },
     install_requires=requirements,
     license="Apache Software License 2.0",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
-    keywords='galaxycreate',
-    name='galaxycreate',
-    packages=find_packages(include=['galaxycreate', 'galaxycreate.*']),
+    keywords='coleslaw',
+    name='coleslaw',
+    packages=find_packages(include=['coleslaw', 'coleslaw.*']),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/alikins/galaxycreate',
+    url='https://github.com/alikins/coleslaw',
     version='0.1.0',
     zip_safe=False,
 )

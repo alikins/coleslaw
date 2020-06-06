@@ -1,4 +1,4 @@
-Welcome to galaxycreate's documentation!
+Welcome to coleslaw's documentation!
 ======================================
 
 .. toctree::

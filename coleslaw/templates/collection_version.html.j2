@@ -1,0 +1,50 @@
+{% extends "default.html.j2" %}
+<!-- coleslaw start colver template="{{ self }}" -->
+{% block title %}{{ data.node.parent.name }}{% endblock title %}
+{% block content %}
+{{ super() }}
+<div class="container">
+    <div class="row justify-content-start">
+        <div class="collection-header"><h2>{{ data.node.parent.collection_label }}-{{ data.node.parent.version }}</h2></div>
+    </div>
+    <div class="row justify-content-start">
+        <div class="col-sm">
+            <div class="collection-label">Label:</div>
+        </div>
+        <div class="col"><div class="collection-field">{{ data.node.parent.collection_label }}</div></div>
+    </div>
+    <div class="row justify-content-start">
+        <div class="col-sm"><div class="collection-field">Version:</div></div>
+        <div class="col"><div class="collection-field-value">{{ data.node.parent.version }}</div></div>
+    </div>
+    <div class="row justify-content-start">
+        <div class="col-sm"><div class="collection-field">Basename:</div></div>
+        <div class="col"><div class="collection-field-value">{{ data.node.parent.artifact_file_basename }}</div></div>
+    </div>
+    <div class="row justify-content-start">
+        <div class="col-sm">
+            <div class="collection-field">Download URL:</div>
+        </div>
+        <div class="col">
+            <div class="collection-field-value"><a href="{{ data.node.parent.download_url }}">{{ data.node.parent.download_url }}</a></div>
+        </div>
+    </div>
+    <div class="row justify-content-start">
+        <div class="col-sm">
+            <div class="collection-field">Size:</div>
+        </div>
+        <div class="col">
+            <div class="collection-field-value">{{ data.node.parent.artifact_info.size }}</div>
+        </div>
+    </div>
+    <div class="row justify-content-start">
+        <div class="col-sm">
+            <div class="collection-field">Modified Date:</div>
+        </div>
+        <div class="col">
+            <div class="collection-field-value">{{ data.node.parent.artifact_info.mtime }}</div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+<!-- coleslaw end colver template="{{ self }}" -->

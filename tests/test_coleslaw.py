@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
-"""Tests for `galaxycreate` package."""
+"""Tests for `coleslaw` package."""
 
 import pytest
 
 from click.testing import CliRunner
 
-from galaxycreate import galaxycreate
-from galaxycreate import cli
+from coleslaw import cli
 
 
 @pytest.fixture
@@ -26,12 +25,9 @@ def test_content(response):
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
 
 
-def test_command_line_interface():
+def test_cli_help():
     """Test the CLI."""
     runner = CliRunner()
-    result = runner.invoke(cli.main)
-    assert result.exit_code == 0
-    assert 'galaxycreate.cli.main' in result.output
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
-    assert '--help  Show this message and exit.' in help_result.output
+    assert 'Show this message and exit.' in help_result.output

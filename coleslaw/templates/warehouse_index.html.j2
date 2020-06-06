@@ -1,0 +1,11 @@
+{% extends "default.html.j2" %}
+<!-- coleslaw start template="{{ self }}" -->
+{% block title %}{{ data.node.parent.warehouse_name|escape }}{% endblock title %}
+{% block content %}
+{{ super() }}
+<h2>Example server config:</h2>
+<pre><code class="language-ini">
+{% include 'ansible.cfg.j2' %}
+</code></pre>
+{% endblock content %}
+<!-- coleslaw end template="{{ self }}" -->

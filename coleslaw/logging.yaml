@@ -1,0 +1,72 @@
+---
+version: 1
+disable_existing_loggers: false
+# disable_existing_loggers: true
+# dynaconf_merge: true
+filters: {}
+formatters:
+  simple:
+    format: "{levelname} {message}"
+    style: "{"
+  verbose:
+    format:
+      # "{levelname} {asctime} {name} {module}:{funcName}:{lineno:d} {message}\n{stack_info}"
+      "|{name} {module}:{funcName}:{lineno:d}| {message}"
+    style: "{"
+  color:
+    '()': color_bucket_logger.ColorFormatter
+    format:
+      "{levelname} {asctime} {processName} {process:5} {name} {module}.{funcName}:{lineno:d} {message}"
+    style: "{"
+    auto_color: true
+    color_groups:
+      - ['name', ['name', 'default', 'funcName', 'lineno', 'module']]
+      - ['levelname', ['levelname']]
+      - ['process', ['process', 'processName']]
+      - ['thread', ['thread', 'threadName']]
+handlers:
+  console:
+    class: logging.StreamHandler
+    # formatter: verbose
+    formatter: color
+    level: DEBUG
+loggers:
+  "":
+    handlers:
+      - console
+    level: DEBUG
+  coleslaw:
+    level: DEBUG
+    # level: INFO
+    propagate: true
+  coleslaw.actions._dummy:
+    level: ERROR
+  coleslaw.readers._dummy:
+    level: ERROR
+  coleslaw.nodes:
+    # level: DEBUG
+    level: INFO
+  coleslaw.writers.TreeExport:
+    level: INFO
+  requests:
+    handlers:
+      - console
+    level: DEBUG
+  rq:
+    level: INFO
+  urllib3:
+    handlers:
+      - console
+    level: DEBUG
+  multiprocessing:
+    level: INFO
+    # stuff not useful for DEBUG
+  MARKDOWN:
+    level: INFO
+  aiohttp:
+    level: INFO
+  asyncio:
+    level: INFO
+  # Used by django_extensions shell_plus with ptpython
+  parso:
+    level: INFO

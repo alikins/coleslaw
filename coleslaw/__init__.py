@@ -1,4 +1,4 @@
-"""Top-level package for galaxycreate."""
+"""Top-level package for coleslaw."""
 
 __author__ = """Adrian Likins"""
 __email__ = 'alikins@redhat.com'

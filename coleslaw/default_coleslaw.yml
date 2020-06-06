@@ -1,0 +1,19 @@
+# Any app wide config that isn't per warehouse
+app: {}
+
+warehouse_defaults:
+  server:
+    url: http://localhost/
+  url_prefix: /
+  templates_dir: templates
+  # incremental: true
+  # generate_html: true
+  # store_snapshot: false
+  galaxy_importer_config:
+    run_ansible_lint: false
+    run_ansible_doc: false
+    run_flake8: false
+    run_ansible_test: false
+    print_result: true
+
+warehouses: {}

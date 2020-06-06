@@ -1,0 +1,8 @@
+{% extends "default.html.j2" %}
+<!-- coleslaw start template="{{ self }}" -->
+{% block title %}README{% endblock title %}
+{% block content %}
+{{ super() }}
+{{ data.node.body_html }}
+{% endblock content %}
+<!-- coleslaw end template="{{ self }}" -->

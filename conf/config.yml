@@ -1,0 +1,54 @@
+#galaxycreate
+#--warehouse golden
+#--server http://localhost/
+#--url-prefix=example/
+#--templates-dir ./templates/
+#--output-dir ~/src/example_galaxycreate/example/
+#~/src/galaxy-test/collection-releases/alikins-collection_ntp-0.1.193.tar.gz
+#~/src/galaxy-test/collection-releases/alikins-collection_inspect-0.0.218.tar.gz
+#~/src/galaxy-test/collection-releases/alikins-collection_ntp-0.1.191.tar.gz
+#~/src/galaxy-test/collection-releases/eifeltower-collection_inspect-0.0.222.tar.gz
+#~/src/galaxy-test/collection-releases/alikins-collection_inspect-0.0.221.tar.gz
+#~/src/galaxy-test/collection-releases/alikins-collection_inspect-0.0.204.tar.gz
+#~/src/galaxy-test/collection-releases/alikins-collection_inspect-0.0.199.tar.gz
+
+# Any app wide config that isn't per warehouse
+global:
+  whatever:
+
+warehouse_defaults:
+  server: http://localhost/
+  url-prefix: /
+  templates-dir: ./templates/
+  # incremental: true
+  # generate_html: true
+  # store_snapshot: false
+  galaxy_importer:
+    run_ansible_lint: false
+    run_ansible_doc: false
+    run_flake8: false
+    run_ansible_test: false
+    print_result: true
+
+warehouses:
+  golden:
+    server: http://localhost/
+    url-prefix: example/
+    output-dir: ~/src/example_galaxycreate/example/
+    # templates-dir: ./templates/
+    galaxy_importer:
+      run_ansible_doc: true
+    collections:
+      - ~/src/galaxy-test/collection-releases/alikins-collection_ntp-0.1.193.tar.gz
+      - ~/src/galaxy-test/collection-releases/alikins-collection_inspect-0.0.218.tar.gz
+      - ~/src/galaxy-test/collection-releases/alikins-collection_ntp-0.1.191.tar.gz
+      - ~/src/galaxy-test/collection-releases/eifeltower-collection_inspect-0.0.222.tar.gz
+      - ~/src/galaxy-test/collection-releases/alikins-collection_inspect-0.0.221.tar.gz
+      - ~/src/galaxy-test/collection-releases/alikins-collection_inspect-0.0.204.tar.gz
+      - ~/src/galaxy-test/collection-releases/alikins-collection_inspect-0.0.199.tar.gz
+      # - /path/to/collection/artifacts/*.tar.gz
+      # - /ci/build_output/collections/**/*.tar.gz
+  demo:
+    server: http://localhost/
+    url-prefix: demo/
+    output-dir: ~/src/galaxycreate_demo/
