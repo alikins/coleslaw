@@ -1,0 +1,50 @@
+app:
+  output_dir: /home/adrian/src/example_galaxycreate/example/
+  url_prefix: example/
+  snapshot_dir: /home/adrian/.galaxycreate/snapshots
+
+warehouse_defaults:
+  server:
+    url: http://localhost/
+    blorp: sdfsdf
+  url_prefix: /
+  templates_dir: templates
+  incremental: false
+  # generate_html: true
+  # store_snapshot: false
+  galaxy_importer_config:
+    run_ansible_lint: false
+    run_ansible_doc: true
+    run_flake8: false
+    run_ansible_test: false
+    print_result: true
+
+warehouses:
+  # demo:
+  #   collections:
+  #     - "~/src/automation_hub_collections/ibm*.tar.gz"
+  golden:
+    server:
+      url: http://localhost/
+    # templates-dir: ./templates/
+    # incremental: true
+    galaxy_importer_config:
+      run_ansible_doc: true
+      # run_ansible_doc: false
+    collections:
+      - "~/src/automation_hub_collections/netapp*.tar.gz"
+      - "~/src/automation_hub_collections/ibm*.tar.gz"
+      - "~/src/automation_hub_collections/cisco*.tar.gz"
+      # - ~/src/galaxy-test/collection-releases/alikins-collection_ntp-0.1.191.tar.gz
+      # - ~/src/galaxy-test/collection-releases/eifeltower-collection_inspect-0.0.222.tar.gz
+      - "~/src/galaxy-test/collection-releases/alikins-collection_inspect-0.0.16*.tar.gz"
+      - "~/src/galaxy-test/collection-releases/alikins-collection_inspect-0.0.17*.tar.gz"
+      # - ~/src/galaxy-test/collection-releases/alikins-collection_inspect-0.0.221.tar.gz
+      - ~/src/galaxy-test/collection-releases/alikins-collection_inspect-0.0.204.tar.gz
+      - ~/src/galaxy-test/collection-releases/alikins-collection_inspect-0.0.199.tar.gz
+      # - /path/to/collection/artifacts/*.tar.gz
+      # - /ci/build_output/collections/**/*.tar.gz
+  silver:
+    incremental: true
+    collections:
+      - "~/src/automation_hub_collections/netapp*.tar.gz"
