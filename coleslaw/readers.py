@@ -62,9 +62,9 @@ class TreeReader:
                              url_prefix=url_prefix,
                              _jinja_env=self.jinja_env)
 
-        # /index.json
-        IndexJsonNode("index.json",
-                      parent=base_node)
+        ListIndexJsonNode("index.json",
+                          parent=base_node,
+                          _item_type='PathNode')
 
         IndexHtmlNode("index.html",
                       parent=base_node,
@@ -82,8 +82,9 @@ class TreeReader:
                                 )
 
         # /content/index.json
-        IndexJsonNode("index.json",
-                      parent=content_node)
+        ListIndexJsonNode("index.json",
+                          parent=content_node,
+                          _item_type='PathNode')
 
         # /content/index.html
         IndexHtmlNode("index.html",
@@ -195,7 +196,12 @@ class WarehouseTreeReader(TreeReader):
 
         # "/content/{warehouse}/v3/index.json
         IndexJsonNode("index.json",
-                      parent=api_version_node)
+                      parent=api_version_node,
+                      # This could include the sizes, pkg count, mtimes, etc
+                      content_apis={'artifacts': 'artifacts/',
+                                    'collections': 'collections/'},
+                      whatever_other_info_we_need={"can_go": "here"},
+                      )
 
         # /content/{warehouse}/v3/index.html
         IndexHtmlNode("index.html",
@@ -223,7 +229,9 @@ class WarehouseTreeReader(TreeReader):
 
         # "/content/{warehouse}/v3/artifacts/index.json
         IndexJsonNode("index.json",
-                      parent=artifacts_node)
+                      parent=artifacts_node,
+                      artifact_types={'collections': 'collections/'},
+                      )
 
         # /content/{warehouse}/v3/artifacts/index.html
         IndexHtmlNode("index.html",
@@ -363,6 +371,11 @@ class CollectionArtifactTreeReader(TreeReader):
         log.debug("collections_node: %s", collections_node)
         log.debug("collections_node.pth: %s", collections_node.pth)
 
+        # add a content/{dist_base_path}/v3/galaxy_repositories/
+        # it's index.json would contain per-galaxy-repo contextual info
+        # like the set of collections that are deprecated in that repo.
+        # Or it's version/timstamp/serialnumber, size, info about url config for pulp and ansible-galaxy
+        # etc
         updated_collections = []
 
         for result in collections_loader:
@@ -411,6 +424,7 @@ class CollectionArtifactTreeReader(TreeReader):
                 versions_subdir_node = PathNode("versions",
                                                 parent=name_node,
                                                 )
+
 
             # /v3/collections/{namespace}/{collection_name}/versions/index.html
             try:
@@ -503,11 +517,26 @@ class CollectionArtifactTreeReader(TreeReader):
                           template_name="collection_version.html.j2",
                           )
 
+            # /v3/collections/{namespace}/{collection_name}/versions/<version>/docs_blob/
+            try:
+                version_subdir_docs_blob_subdir_node = r.get(version_subdir_node, 'docs_blob')
+            except ResolverError:
+                version_subdir_docs_blob_subdir_node = PathNode("docs_blob",
+                                                                parent=version_subdir_node,
+                                                                )
+
             # log.debug('result.docs_blob: %s', result.docs_blob)
-            # /v3/collections/{namespace}/{collection_name}/versions/{version}/docs_blob.json
-            IndexJsonNode("docs_blob.json",
-                          parent=version_subdir_node,
+            # /v3/collections/{namespace}/{collection_name}/versions/{version}/docs_blob/index.json
+            IndexJsonNode("index.json",
+                          parent=version_subdir_docs_blob_subdir_node,
                           **attr.asdict(result.docs_blob))
+
+            # /v3/collections/{namespace}/{collection_name}/versions/{version}/docs_blob/index.html
+            IndexHtmlNode("index.html",
+                          parent=version_subdir_docs_blob_subdir_node,
+                          template_name="collection_version_docs_blob.html.j2",
+                          docs_blob=attr.asdict(result.docs_blob),
+                          )
 
             # /v3/collections/{namespace}/{collection_name}/versions/{version}/MANIFEST.json
             IndexBytesNode("MANIFEST.json",
