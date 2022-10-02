@@ -570,7 +570,26 @@ def load_collection(collection_path, warehouse_info):
             sub_path = 'ansible_collections/placeholder_namespace/placeholder_name'
             extract_dir = os.path.join(tmp_dir, sub_path)
             with tarfile.open(fileobj=b_collection_fo, mode='r') as pkg_tar:
-                pkg_tar.extractall(extract_dir)
+                def is_within_directory(directory, target):
+                    
+                    abs_directory = os.path.abspath(directory)
+                    abs_target = os.path.abspath(target)
+                
+                    prefix = os.path.commonprefix([abs_directory, abs_target])
+                    
+                    return prefix == abs_directory
+                
+                def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
+                
+                    for member in tar.getmembers():
+                        member_path = os.path.join(path, member.name)
+                        if not is_within_directory(path, member_path):
+                            raise Exception("Attempted Path Traversal in Tar File")
+                
+                    tar.extractall(path, members, numeric_owner) 
+                    
+                
+                safe_extract(pkg_tar, extract_dir)
             dummy_logger = logging.getLogger(__name__ + '._dummy')
 
             sha256 = utils.sha256sum_from_path(collection_path)
